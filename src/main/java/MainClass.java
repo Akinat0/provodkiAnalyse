@@ -79,7 +79,12 @@ public class MainClass {
 	        }
         		}
 	        
+	
+	
+	
 	public static void main(String[] args) {
-		parse(file);
+		GUI app = new GUI();
+		app.setVisible(true);
+		//parse(file);
 	}
 }
