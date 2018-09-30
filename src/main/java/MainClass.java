@@ -97,7 +97,7 @@ public class MainClass {
 	    Sheet sheet = workBook.getSheetAt(0);
 	    Iterator<Row> rows = sheet.iterator();
 	    int counter = 0;
-	    while(rows.hasNext() && counter < 200) {
+	    while(rows.hasNext() && counter < 380) {
 	    	System.out.println("Row number " + counter);
 	    	Row row = rows.next();
 	        System.out.println("I'm in analyse");

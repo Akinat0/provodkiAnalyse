@@ -55,12 +55,37 @@ public class WordSeparator {
 		}
 		
 		words.sort((one, other) -> (-1 * Integer.compare(one.amount, other.amount)));
+		makeReadable();
 	}
 
 	WordSeparator(){
 		words = new ArrayList<Word>();
 	}
+	
+	public static String[] makeReadable() {
+		
+		int totalWords = 0;
+		for(int i=0; i<words.size(); i++) {
+			totalWords += words.get(i).amount;
+		}
+		
+		
+		int totalUniquelWords = words.size();
+		
+		String [] array = new String[totalUniquelWords];
+		
+		for(int i = 0; i < totalUniquelWords; i++) {
+			
+			array[i] = words.get(i).name + " - " + words.get(i).amount + "  // " + ((float)words.get(i).amount/totalWords)*100.f + "%";
+		//	System.out.println(array[i]);
+		}
+	
+		
+		return array;
+		
+	}
 }
+
 
 
 class Word  {
