@@ -79,7 +79,38 @@ public class MainClass {
 	        }
         		}
 	        
-	
+	public static void analyse(String fileName) {
+		 WordSeparator sep = new WordSeparator();
+		//Threads initialization
+		String result = "";
+	    InputStream inputStream = null;
+	    XSSFWorkbook workBook = null;
+	    
+	    try {
+	    	inputStream = new FileInputStream(fileName);
+	        workBook = new XSSFWorkbook(inputStream);
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    //Excel file filtering
+	    Sheet sheet = workBook.getSheetAt(0);
+	    Iterator<Row> rows = sheet.iterator();
+	    int counter = 0;
+	    while(rows.hasNext() && counter < 200) {
+	    	System.out.println("Row number " + counter);
+	    	Row row = rows.next();
+	        System.out.println("I'm in analyse");
+	        WordSeparator.input(row);
+	        counter++;
+	    }
+	    
+	    
+	    System.out.println("Print words:" + WordSeparator.words.size());
+	    for(int i = 0; i<WordSeparator.words.size(); i++) {
+	    	System.out.print(WordSeparator.words.get(i).name + " = " + WordSeparator.words.get(i).amount + " ");
+	    }
+	}
 	
 	
 	public static void main(String[] args) {

@@ -90,7 +90,7 @@ public class OutputInExcelFile {
 	
 	
 	
-	public  void order_1(Row inputRow) {
+	public void order_1(Row inputRow) {
 		System.out.println("I'm in order");
 		final int ORDER_1_SUBITEM_VALUE = 1;
 		final int ORDER_1_THIRD_KEY_VALUE = 1;	

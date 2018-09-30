@@ -26,7 +26,7 @@ public class GUI extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//Analyze method
+			MainClass.analyse(MainClass.file);
 		}
 	}
 	
