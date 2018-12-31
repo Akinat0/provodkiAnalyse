@@ -107,9 +107,9 @@ public class MainClass {
 	    
 	    
 	    System.out.println("Print words:" + WordSeparator.words.size());
-	    for(int i = 0; i<WordSeparator.words.size(); i++) {
+	  /*  for(int i = 0; i<WordSeparator.words.size(); i++) {
 	    	System.out.print(WordSeparator.words.get(i).name + " = " + WordSeparator.words.get(i).amount + " ");
-	    }
+	    }*/
 	}
 	
 	
