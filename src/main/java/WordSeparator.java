@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 
 public class WordSeparator {
+	
 
 	public static ArrayList<Word> words;
 	
@@ -26,14 +27,13 @@ public class WordSeparator {
 		text = text.trim();
 		text = text.toLowerCase();
 		
-		String[] localWords = text.split("\\s+");
-		System.out.println(localWords.length);
+		String[] localWords = text.split("\\s+"); //Splitting by spaces
 		
 		for(int i = 0; i < localWords.length; i++) {
 			String requiredWord = localWords[i]; 
 
 			if(words.size() == 0) {
-				System.out.println("First elemrnt");
+				System.out.println("First element");
 				words.add(new Word(requiredWord)); //If it's the first word then create it independantly
 			}else {
 				

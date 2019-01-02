@@ -18,8 +18,8 @@ public class GUI extends JFrame{
 		Container container = this.getContentPane();
 		container.setLayout(new GridLayout(3, 2, 2, 2));
 		
-		btn1.addActionListener(new AnalyzeButtonEvent());
-		btn2.addActionListener(new GenerateButtonEvent());
+//		btn1.addActionListener(new AnalyzeButtonEvent());
+//		btn2.addActionListener(new GenerateButtonEvent());
 		
 		btn1.setFont(new Font("Serif", Font.PLAIN, 40));
 		btn2.setFont(new Font("Serif", Font.PLAIN, 40));
@@ -54,23 +54,6 @@ public class GUI extends JFrame{
         frame.setVisible(true);
 	}
 	
-	class AnalyzeButtonEvent implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			MainClass.analyse(MainClass.file);
-			showList();
-		}
-	}
-	
-	class GenerateButtonEvent implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			MainClass.parse(MainClass.file);
-			
-		}
-		
-	}
+	 
+	   
 }
