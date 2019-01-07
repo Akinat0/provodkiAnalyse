@@ -17,12 +17,12 @@ public class Controller {
 	final static String sheet = "¬ход";
 	
 	public WordsPreparing prep;
-	public TextAnalyse analyze;
+	public RowAnalyze analyze;
 	
 	static OutputInExcelFile outFile;
 	
 	
-	public void parse(String fileName) {
+	public void parse() {
 	    //Flows initializing
 	        String result = "";
 	        InputStream inputStream = null;
@@ -35,12 +35,16 @@ public class Controller {
 	        }
 	     //Creating an outFile instance
 	        outFile = new OutputInExcelFile();
+	        analyze = new RowAnalyze();
 
 	     //Parsing process
 	        Sheet sheet = workBook.getSheetAt(0);
 	     
 	        Iterator<Row> rows = sheet.iterator();
+	        
 	        int counter = 0;
+	        
+	        rows.next();
 	        
 	     //Separationg and analizing first 100 rows
 	        while(rows.hasNext() && counter < 100) {
@@ -49,7 +53,7 @@ public class Controller {
 	        	
 	        	if(row.getCell(2).getStringCellValue() == null) break; //Checking, Is the row null
 		    	
-		        analyze.input(row.getCell(2).getStringCellValue()); //Go to analyze
+		        analyze.processing(row); //Go to analyze
 	        	
 	        	counter++;
 	        }

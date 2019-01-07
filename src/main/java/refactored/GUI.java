@@ -20,6 +20,7 @@ public class GUI extends JFrame{
 	
 	private JButton btn1 = new JButton("Analyze");
 	private JButton btn2 = new JButton("Generate");
+	private JButton btn3 = new JButton("Programming");
 	
 	private Controller ctrl;
 	
@@ -33,12 +34,15 @@ public class GUI extends JFrame{
 		
 		btn1.addActionListener(new AnalyzeButtonEvent());
 		btn2.addActionListener(new GenerateButtonEvent());
+		btn3.addActionListener(new ProgrammingButtonEvent());
 		
 		btn1.setFont(new Font("Serif", Font.PLAIN, 40));
 		btn2.setFont(new Font("Serif", Font.PLAIN, 40));
+		btn3.setFont(new Font("Serif", Font.PLAIN, 40));
 		
 		container.add(btn1);
 		container.add(btn2);
+		container.add(btn3);
 		
 		ctrl = new Controller();
 	}
@@ -47,12 +51,24 @@ public class GUI extends JFrame{
 	private WordsPreparing prep;
 	private Splitter splitter;
 	
-	public void showList() {
-		JFrame frame  = new JFrame("List");
+	public void showProgrammingActions() {
+		JFrame frame  = new JFrame("New Action List");
         
 		frame.setBounds(0, 0, 5000, 5000);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+	}
+	
+	public void showList() {
+		JFrame frame  = new JFrame("List");
+        
+		frame.setBounds(0, 0, 10000, 10000);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		
 		JList jlist = new JList(prep.makeReadable()); 
 		
@@ -85,7 +101,18 @@ public class GUI extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		//	MainClass.parse(MainClass.file);
+			
+			ctrl.parse();
+		}
+		
+	}
+
+	class ProgrammingButtonEvent implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			showProgrammingActions();
+			Debug.log("Programming Button event happened");
 		}
 		
 	}

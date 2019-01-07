@@ -19,7 +19,7 @@ public class TextAnalyse {
 	final static int ORDER_5 = 5;
 	final static int ORDER_6 = 6;
 	
-	public TextEditing textEd;
+	public RowAnalyze textEd;
 	
 	public void input(String text) {
 
@@ -67,22 +67,22 @@ public class TextAnalyse {
 	private void output(int order) {
 		switch (order) {
 		case ORDER_1:
-			textEd.processing(row);
+		//	textEd.processing(row);
 			break;
 		case ORDER_2:
-			Controller.outFile.order_2(row);
+		//	Controller.outFile.order_2(row);
 			break;
 		case ORDER_3:
-			Controller.outFile.order_3(row);
+	//		Controller.outFile.order_3(row);
 			break;
 		case ORDER_4:
-			Controller.outFile.order_4(row);
+		//	Controller.outFile.order_4(row);
 			break;
 		case ORDER_5:
-			Controller.outFile.order_5(row);
+		//	Controller.outFile.order_5(row);
 			break;
 		case ORDER_6:
-			Controller.outFile.order_6(row);
+		//	Controller.outFile.order_6(row);
 			break;
 		}
 	}
