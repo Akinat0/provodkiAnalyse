@@ -27,12 +27,26 @@ public class Main {
 	public static void main(String[] args) {
 		//Initializing GUI
 		GUI app = new GUI();
-		app.setVisible(true);
-		/*WordsPreparing prep = new WordsPreparing();
-		prep.input(" я как как я я я я как кака я");
-		String[] words = prep.makeReadable();
-		for(int i=0; i<words.length; i++) {
-			Debug.log(words[i]);
+	app.setVisible(true);
+
+		/*String kindOfText = "время вытаскивать/кальмаров/из/ytn/vods off//" ;
+		Sign sign = new Sign();
+		sign.read(kindOfText);
+		for(int i = 0; i < sign.signVector.size(); i++) {
+			Debug.log(sign.signVector.get(i));
 		}*/
+		/*
+		String[] formulas = new String[] { "2+2*2", "2+X*2", "sin(90)+4-cos(0)", "2--4"};
+        MathParser p = new MathParser();
+        p.setVariable("X", 2.0 );
+        for( int i = 0; i < formulas.length; i++){
+            try{
+                System.out.println( formulas[i] + "=" + p.Parse( formulas[i] ) );
+            }catch(Exception e){
+                System.err.println( "Error while parsing '"+formulas[i]+"' with message: " + e.getMessage() );
+            } 
+        }
+        */
+		
 	}
 }
