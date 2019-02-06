@@ -1,7 +1,10 @@
 package refactored;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class FileManager {
@@ -21,6 +24,15 @@ public class FileManager {
 	}
 	
 	
+	public String getText() throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader(file.getPath()));
+        String fileText = "";
+        String line;
+        while ((line = in.readLine()) != null) {
+        	fileText += line;
+        };
+        return fileText;
+	}
 	
 	public boolean edit() {
 		try {

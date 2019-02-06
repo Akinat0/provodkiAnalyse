@@ -28,8 +28,8 @@ public class Main {
 		//Initializing GUI
 		GUI app = new GUI();
 	app.setVisible(true);
-
-		/*String kindOfText = "время вытаскивать/кальмаров/из/ytn/vods off//" ;
+/*
+		String kindOfText = "время вытаскивать/кальмаров/из/ytn/vods off//" ;
 		Sign sign = new Sign();
 		sign.read(kindOfText);
 		for(int i = 0; i < sign.signVector.size(); i++) {

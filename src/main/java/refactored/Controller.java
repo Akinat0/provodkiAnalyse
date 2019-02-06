@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -106,5 +107,13 @@ public class Controller {
 	  
 	}
 	
-	
+	public void Generate(String pathToBehaviour, String pathToInput, String pathToOutput) throws IOException {
+		Behaviour behaviour = new Behaviour();
+		FileManager behFile = new FileManager(pathToBehaviour);
+		String fileText = behFile.getText();
+		
+		behaviour.parse(fileText);
+		
+		behaviour.print();
+	}
 }
