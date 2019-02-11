@@ -43,17 +43,18 @@ public class GUI extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println(ctrl == null);			\
 				prep = ctrl.analyse();
 				showList();
 			}
 		}
+	
+		//EDITED
 		class GenerateButtonEvent implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				ctrl.parse();
+		
+		//		ctrl.parse();
 			}
 			
 		}
@@ -157,15 +158,18 @@ public class GUI extends JFrame{
 
 	    
 	    
-	    programmFilePath = new JTextField("Path to file with programm");
+	    //programmFilePath = new JTextField("Path to file with programm");
+	    programmFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
 	    programmFilePath.setMaximumSize(new Dimension(2000, 100));
 
 	    JTextField originFilePath;
-	    originFilePath = new JTextField("Path to file with origin");
+	    //originFilePath = new JTextField("Path to file with origin");
+	    originFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\Проводки.xlsx");
 	    originFilePath.setMaximumSize(new Dimension(2000, 100));
 
 	    JTextField generatedFilePath;
-	    generatedFilePath = new JTextField("Path to generated file");
+	    //generatedFilePath = new JTextField("Path to generated file");
+	    generatedFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\Output.xlsx");
 	    generatedFilePath.setMaximumSize(new Dimension(2000, 100));
 	    
 	    JButton applyBtn = new JButton("Apply");

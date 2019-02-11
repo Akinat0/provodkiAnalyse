@@ -29,7 +29,7 @@ public class OutputInExcelFile {
 	public static void WriteRow(String[] cells) {
 		Row r = sheet.createRow(rowAmount);
 		for(int i=0; i<cells.length; i++) {
-			Debug.log(r.getCell(i) + "");
+			//Debug.log(r.getCell(i) + "");
 			r.createCell(i).setCellValue(cells[i]);
 			
 		}	

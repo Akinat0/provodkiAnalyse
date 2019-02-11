@@ -19,9 +19,17 @@ public class RowAnalyze {
 	final static int ACCOUNT_41 = 41;
 	final static int ACCOUNT_26 = 26;
 
+	private Behaviour beh;
+	
+	public RowAnalyze(Behaviour behaviour) {
+		beh = behaviour;
+		beh.print();
+	}
+	
+	
 	public void processing(Row row) {
 		
-		String[] cells = new String[5];
+		String[] cells = new String[5]; //Init
 		
 		cells[0] = row.getCell(CELL_WITH_ID).toString(); //Index
 
@@ -34,32 +42,71 @@ public class RowAnalyze {
 		
 		cells = NDS(cells.clone());
 		
+		cells = BehAnalyze(cells.clone());
+		
 		for(int i=0; i < cells.length; i++) {
 			if (cells[i] == null) cells[i] = ""; 	//Fill null cells with void values
 		}
+		
+		
+		
 		OutputInExcelFile.WriteRow(cells);
 	}
 
-
+	private String[] BehAnalyze(String[] cells) {
+		
+		Sign sign = null;
+		float restSum = 0;
+		if(cells[Constants.Expense].equals("Расход")) {
+			//Взяв вместо Sign list из sign'ов можно перейти к комплексности (И вместо if сделав while)
+			sign = beh.Find(cells[Constants.Text]);
+		}
+		if(sign != null) {
+			restSum += CreateBehRow(cells.clone(), sign);
+		}
+		cells[Constants.Sum] = (Float.valueOf(cells[Constants.Sum]) - restSum) + "";
+		
+		return cells;
+	}
+	
+	
+	
 	private String[]  NDS(String[] cells) {
 		final int INPUT_CELL_WITH_TEXT = 1;
 		final String NO_NDS = "ндс не облагается";
 		String text = cells[INPUT_CELL_WITH_TEXT].toLowerCase();
-		Debug.log(text);
 		if (text.indexOf(NO_NDS) == -1) { // There is NDS
-			Debug.log("NDS has been detected here");
 			CreateNDSRow(cells.clone());
-			cells[CELL_WITH_SUM] = (Float.valueOf(cells[CELL_WITH_SUM]) - calculateNDS(Float.valueOf(cells[CELL_WITH_SUM]))) + "";
+			cells[Constants.Sum] = (Float.valueOf(cells[Constants.Sum]) - calculateNDS(Float.valueOf(cells[Constants.Sum]))) + "";
 			return cells; 
 		}else {
-			Debug.log("NDS hasn't been detected");
 			return cells;
 		}
+	}
+	private float CreateBehRow(String[] inputCells, Sign sign) {
+		
+		float newSum = sign.calculate(Float.valueOf(inputCells[Constants.Sum]));
+		
+		inputCells[Constants.Sum] = newSum + "";
+		
+		
+		for(int i=0; i < inputCells.length; i++) {
+			if (inputCells[i] == null) inputCells[i] = ""; 	//Fill null cells with void values
+		}
+		
+		inputCells[4] = "User programm " + sign.signVector;
+		
+		
+		OutputInExcelFile.WriteRow(inputCells);
+		
+		inputCells[4] = "";
+	
+		return newSum;
 	}
 	
 	private void CreateNDSRow(String[] inputCells) {
 		
-		inputCells[CELL_WITH_SUM] = calculateNDS(Float.valueOf(inputCells[CELL_WITH_SUM])) + "";
+		inputCells[Constants.Sum] = calculateNDS(Float.valueOf(inputCells[Constants.Sum])) + "";
 		
 		
 		for(int i=0; i < inputCells.length; i++) {
@@ -73,9 +120,9 @@ public class RowAnalyze {
 		inputCells[4] = "";
 	}
 	
+
 	private float calculateNDS(float sum) {
 		float pureSum = sum/1.18f; //Pure sum value
-	//	Debug.log("Sum = " + sum + " pure sum = " + pureSum);
 		return sum - pureSum;	   //NDS value	
 	}  
 	
@@ -95,7 +142,6 @@ public class RowAnalyze {
 	private String getKreditCode(Row inputRow) {
 		final int KREDIT_CELL_INPUT = 6;
 		String a =  inputRow.getCell(KREDIT_CELL_INPUT).getStringCellValue();
-		System.out.println(a);
 		return a;
 	}
 	
@@ -106,14 +152,22 @@ public class RowAnalyze {
 	}
 	
 	public String incomeOrExpense(Cell kredit, Cell debet) {
-		Debug.log("Debet = " + debet + ", Kredit = " + kredit );
 		if(debet.toString().equals("")) {
 			
 			if(kredit.toString().equals("")) return "Брак";
-			Debug.log("Expenses");
 			return "Расход";
 		}
-		Debug.log("Income");
 		return "Доход";
 		}
+}
+
+class Constants{
+	final static int size = 5;
+	final static int ID = 0;
+	final static int Text = 1;
+	final static int Expense = 2;
+	final static int Sum = 3;
+	final static int nds = 4;
+	
+	
 }

@@ -23,7 +23,7 @@ public class Controller {
 	static OutputInExcelFile outFile;
 	
 	
-	public void parse() {
+	/*public void parse() {
 	    //Flows initializing
 	        String result = "";
 	        InputStream inputStream = null;
@@ -67,7 +67,52 @@ public class Controller {
 	        }
 	        
         }
+*/
+	
+	public void parse(String inputPath, String outputPath, Behaviour behaviour) {
+	    //Flows initializing
+	        String result = "";
+	        InputStream inputStream = null;
+	        XSSFWorkbook workBook = null;
+	        try {
+	            inputStream = new FileInputStream(inputPath);
+	            workBook = new XSSFWorkbook(inputStream);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	     //Creating an outFile instance
+	        outFile = new OutputInExcelFile();
+	        analyze = new RowAnalyze(behaviour);
 
+	     //Parsing process
+	        Sheet sheet = workBook.getSheetAt(0);
+	     
+	        Iterator<Row> rows = sheet.iterator();
+	        
+	        int counter = 0;
+	        
+	        rows.next();
+	        
+	     //Separationg and analizing first 100 rows
+	        while(rows.hasNext() && counter < 100) {
+	        	Row row = rows.next();
+	        	//System.out.println("I'm in parsing");
+	        	
+	        	if(row.getCell(2).getStringCellValue() == null) break; //Checking, Is the row null
+		    	
+		        analyze.processing(row); //Go to analyze
+	        	
+	        	counter++;
+	        }
+	        
+	        //Write result in out file
+	        try (FileOutputStream out = new FileOutputStream(new File(outputPath))) {
+	            outFile.book.write(out);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        
+        }
 	
 	public WordsPreparing analyse() {
 		
@@ -115,5 +160,7 @@ public class Controller {
 		behaviour.parse(fileText);
 		
 		behaviour.print();
+		
+		parse(pathToInput, pathToOutput, behaviour);
 	}
 }

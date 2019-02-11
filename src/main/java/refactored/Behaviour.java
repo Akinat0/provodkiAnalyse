@@ -7,9 +7,18 @@ public class Behaviour {
 	protected final String BEHAVIOUR_START = "Behaviour<";
 	protected final String BEHAVIOUR_END = ">";
 	
-	
-	
+	//Sigs contains in that behaviour
 	private ArrayList<Sign> signs;
+	
+	public Sign Find(String text) {
+		Debug.log("I've been in Find");
+		for(int i=0; i<signs.size(); i++) {
+			Sign curSign = signs.get(i);
+			if(curSign.find(text)) return curSign ;
+		}
+		Debug.log("I didn't find suitable sign");
+		return null;
+	}
 	
 	public void parse(String text) {
 		signs = new ArrayList<>();
@@ -18,8 +27,6 @@ public class Behaviour {
 			int start = text.indexOf(BEHAVIOUR_START) + BEHAVIOUR_START.length();
 			int end = text.indexOf(BEHAVIOUR_END);
 			String behText = text.substring(start, end);
-			
-			Debug.log("Behaviour looks like that: " + behText);
 			
 			Sign sign = new Sign();
 			
@@ -33,10 +40,17 @@ public class Behaviour {
 	}
 	
 	public void print() {
-		Debug.log("Behavior contains " + signs.size() + " signs");
 		for(int i=0; i< signs.size(); i++) {
 			signs.get(i).printSign();
 		}
+	}
+
+	public int getSize() {
+		if(signs != null) {
+			return signs.size();
+		}
+		Debug.log("Sign Vector is null");
+		return (Integer) null;
 	}
 }
 
@@ -51,9 +65,28 @@ class Sign{
 	ArrayList<String> signVector;
 	String formula;
 	
+	public float calculate(float sum) {
+		
+		MathParser form = new MathParser();
+		form.setVariable("s", (double)sum);
+		
+		double result = 0;
+		
+		try {
+			//
+			result = form.Parse(formula);
+			//
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return (float)result;
+	}
+	
 	public Sign() {
 		signVector = new ArrayList<>();
 	}
+	
 	
 	public boolean find(String text) {
 		for(int i=0; i< signVector.size(); i++) {
@@ -63,7 +96,7 @@ class Sign{
 		}
 		return true;
 	}
-	
+	//Reading from file
 	public void readSign(String text) {
 		if(text.contains(SIGN_START)) {  
 			
@@ -71,21 +104,21 @@ class Sign{
 			int end = text.indexOf(SIGN_END);
 			
 			String rule = text.substring(start, end);
-			Debug.log("Rule " + rule );
 			while(rule.indexOf('/') != -1) {
 				int index = rule.indexOf('/');
 				String sign = rule.substring(0, index);
+				Debug.log(sign);
 				signVector.add(sign);
 				rule = rule.substring(index + 1, rule.length());
 			}
-			
-			//Debug.log(text);
+			String sign = rule.substring(0, rule.length());
+			signVector.add(sign);
+			Debug.log("" + signVector);
 			return;
 		}
-		Debug.log("There wasn't a kind of sign");
 		return;
 	}
-	
+	//Reading from file
 	public void readForm(String text) {
 		if(text.contains(FORM_START)) {  
 			
@@ -96,7 +129,6 @@ class Sign{
 			
 			formula = text.substring(start, end);
 			
-			//Debug.log(rule.substring(start, end));
 			return;
 		}
 	}
@@ -107,9 +139,7 @@ class Sign{
 		for(int i=0; i< signVector.size(); i++) {
 			vector += signVector.get(i) + "; "; 
 		}
-		
-		Debug.log("Sign vector: " + vector + " Form " + formula);
-		
+		Debug.log(vector);
 	}
 	
 }

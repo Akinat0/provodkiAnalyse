@@ -10,7 +10,6 @@ public class Splitter {
 	
 	public void input(String text){
 		if(text == null || text == "") return;
-		System.out.println("I'm in inputting");
 		separation(text);
 	}
 	
