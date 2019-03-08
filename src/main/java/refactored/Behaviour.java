@@ -12,9 +12,11 @@ public class Behaviour {
 	
 	public Sign Find(String text) {
 		Debug.log("I've been in Find");
+		Debug.log("Now i'll try to find smth in text: " + text);
 		for(int i=0; i<signs.size(); i++) {
 			Sign curSign = signs.get(i);
-			if(curSign.find(text)) return curSign ;
+			Debug.log(curSign.signVector.toString());
+			if(curSign.findInSign(text)) return curSign ;
 		}
 		Debug.log("I didn't find suitable sign");
 		return null;
@@ -88,12 +90,15 @@ class Sign{
 	}
 	
 	
-	public boolean find(String text) {
+	public boolean findInSign(String text) {
+		text = text.toLowerCase();
 		for(int i=0; i< signVector.size(); i++) {
-			if(!text.contains(signVector.get(i))) {
+			if(!text.contains(signVector.get(i).toLowerCase())) {
+				Debug.log("The text doesn't contain " + signVector.get(i));
 				return false;
 			}
 		}
+		Debug.log("Sign " + signVector.toString() + " is perfect for me!");
 		return true;
 	}
 	//Reading from file

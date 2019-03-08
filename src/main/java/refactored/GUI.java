@@ -113,7 +113,7 @@ public class GUI extends JFrame{
 	    frame.add(panel);
 
 	    JButton applyBtn = new JButton("Apply");
-	    JButton okBtn = new JButton("OK");
+	    
 	    
 	    //Apply button listener
 	    class ApplyPathButtonEvent implements ActionListener{
@@ -127,29 +127,41 @@ public class GUI extends JFrame{
 			}
 
 		}
+	    //Ok button
+	    JButton okBtn = new JButton("OK");
+	    okBtn.addActionListener(new OkPathButtonEvent(frame));
+	    okBtn.setFont(new Font("Serif", Font.PLAIN, 35));
 	    
-	    //Ok button listener
-	    class OkPathButtonEvent implements ActionListener{
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-
-		}
 	    applyBtn.addActionListener(new ApplyPathButtonEvent());
 	    
 	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
 	    analyseFilePath.setMaximumSize(new Dimension(2000, 100));
 	    applyBtn.setFont(new Font("Serif", Font.PLAIN, 35));
+	    
 	    analyseFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
 	    
 	    panel.add(analyseFilePath);
 	    panel.add(applyBtn);
+	    panel.add(okBtn);
+	    
 	    
 	    frame.setVisible(true);
 	}
 	
-	
+	 //Ok button listener
+    class OkPathButtonEvent implements ActionListener{
+    	
+    	private JFrame frame;
+    	public OkPathButtonEvent(JFrame frame) {
+    		this.frame = frame;
+    	}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+		}
+
+	}
+    
 	//When Analysing Button pressed
 	public void showAnalysingActions() {
 		JFrame frame  = new JFrame("New Analise List");
@@ -178,15 +190,22 @@ public class GUI extends JFrame{
 			
 			
 		}
+	    
 	    applyBtn.addActionListener(new ApplyPathButtonEvent());
 	    
 	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\Проводки.xlsx");
 	    analyseFilePath.setMaximumSize(new Dimension(2000, 100));
 	    applyBtn.setFont(new Font("Serif", Font.PLAIN, 35));
 	    analyseFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
+	    //Ok btn
+	    JButton okBtn = new JButton("OK");
+	    okBtn.addActionListener(new OkPathButtonEvent(frame));
+	    okBtn.setFont(new Font("Serif", Font.PLAIN, 35));
+	    
 	    
 	    panel.add(analyseFilePath);
 	    panel.add(applyBtn);
+	    panel.add(okBtn);
 	    
 	    frame.setVisible(true);
 	}
@@ -203,8 +222,12 @@ public class GUI extends JFrame{
 		panel.setBounds(61, 0, 81, 140);
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    frame.add(panel);
-
 	    
+	    //ok Button
+	    JButton okBtn = new JButton("OK");
+	    okBtn.addActionListener(new OkPathButtonEvent(frame));
+	    okBtn.setFont(new Font("Serif", Font.PLAIN, 35));
+	
 	    
 	    //programmFilePath = new JTextField("Path to file with programm");
 	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
@@ -250,6 +273,7 @@ public class GUI extends JFrame{
 	    panel.add(originFilePath);
 	    panel.add(generatedFilePath);
 	    panel.add(applyBtn);
+	    panel.add(okBtn);
 	    
 	    frame.setVisible(true);
 	}
