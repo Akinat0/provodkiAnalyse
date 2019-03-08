@@ -94,7 +94,7 @@ public class RowAnalyze {
 			if (inputCells[i] == null) inputCells[i] = ""; 	//Fill null cells with void values
 		}
 		
-		inputCells[4] = "User programm " + sign.signVector;
+		inputCells[4] = sign.signVector.toString();
 		
 		
 		OutputInExcelFile.WriteRow(inputCells);

@@ -94,10 +94,11 @@ public class Controller {
 	        rows.next();
 	        
 	     //Separationg and analizing first 100 rows
-	        while(rows.hasNext() && counter < 100) {
+	        while(rows.hasNext() && counter < 500) {
 	        	Row row = rows.next();
 	        	//System.out.println("I'm in parsing");
 	        	
+	        	Debug.log(counter + "");
 	        	if(row.getCell(2).getStringCellValue() == null) break; //Checking, Is the row null
 		    	
 		        analyze.processing(row); //Go to analyze
@@ -108,13 +109,13 @@ public class Controller {
 	        //Write result in out file
 	        try (FileOutputStream out = new FileOutputStream(new File(outputPath))) {
 	            outFile.book.write(out);
-	        } catch (IOException e) {
+	        } catch (IOException e) { 
 	            e.printStackTrace();
 	        }
 	        
         }
 	
-	public WordsPreparing analyse() {
+	public WordsPreparing analyse(String fileName) {
 		
 
 		//Creating an instance of WordsPreparing

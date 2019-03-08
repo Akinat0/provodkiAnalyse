@@ -27,7 +27,7 @@ public class GUI extends JFrame{
 	private JButton btn2 = new JButton("Generate");
 	private JButton btn3 = new JButton("Programming");
 	private JButton btn4 = new JButton("Generate progarmmed file");
-	protected JTextField programmFilePath;
+	protected JTextField analyseFilePath;
 	
 	private Controller ctrl;
 	
@@ -43,8 +43,7 @@ public class GUI extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				prep = ctrl.analyse();
-				showList();
+				showAnalysingActions();
 			}
 		}
 	
@@ -86,7 +85,7 @@ public class GUI extends JFrame{
 		btn4.setFont(new Font("Serif", Font.PLAIN, 40));
 		
 		container.add(btn1);
-		container.add(btn2);
+		//container.add(btn2); Hide btn2
 		container.add(btn3);
 		container.add(btn4);
 		
@@ -114,17 +113,66 @@ public class GUI extends JFrame{
 	    frame.add(panel);
 
 	    JButton applyBtn = new JButton("Apply");
+	    JButton okBtn = new JButton("OK");
+	    
+	    //Apply button listener
+	    class ApplyPathButtonEvent implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FileManager fmanager = new FileManager(analyseFilePath.getText());
+				boolean isOpened = fmanager.edit();
+				if(!isOpened) {
+					Debug.log("There is a problem with file on path " + fmanager.file.getPath());
+				}
+			}
+
+		}
+	    
+	    //Ok button listener
+	    class OkPathButtonEvent implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+
+		}
+	    applyBtn.addActionListener(new ApplyPathButtonEvent());
+	    
+	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
+	    analyseFilePath.setMaximumSize(new Dimension(2000, 100));
+	    applyBtn.setFont(new Font("Serif", Font.PLAIN, 35));
+	    analyseFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
+	    
+	    panel.add(analyseFilePath);
+	    panel.add(applyBtn);
+	    
+	    frame.setVisible(true);
+	}
+	
+	
+	//When Analysing Button pressed
+	public void showAnalysingActions() {
+		JFrame frame  = new JFrame("New Analise List");
+        
+		frame.setBounds(0, 0, 1000, 1000);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel();
+
+		panel.setBounds(61, 0, 81, 140);
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	    frame.add(panel);
+
+	    JButton applyBtn = new JButton("Apply");
 	    class ApplyPathButtonEvent implements ActionListener{
 
 			 
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FileManager fmanager = new FileManager(programmFilePath.getText());
-				boolean isOpened = fmanager.edit();
-				if(!isOpened) {
-					Debug.log("There is a problem with file on path " + fmanager.file.getPath());
-				}
+				prep = ctrl.analyse(analyseFilePath.getText());
+				showList();
 			}
 			
 			
@@ -132,12 +180,12 @@ public class GUI extends JFrame{
 		}
 	    applyBtn.addActionListener(new ApplyPathButtonEvent());
 	    
-	    programmFilePath = new JTextField("Path to file");
-	    programmFilePath.setMaximumSize(new Dimension(2000, 100));
+	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\Проводки.xlsx");
+	    analyseFilePath.setMaximumSize(new Dimension(2000, 100));
 	    applyBtn.setFont(new Font("Serif", Font.PLAIN, 35));
-	    programmFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
+	    analyseFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
 	    
-	    panel.add(programmFilePath);
+	    panel.add(analyseFilePath);
 	    panel.add(applyBtn);
 	    
 	    frame.setVisible(true);
@@ -159,8 +207,8 @@ public class GUI extends JFrame{
 	    
 	    
 	    //programmFilePath = new JTextField("Path to file with programm");
-	    programmFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
-	    programmFilePath.setMaximumSize(new Dimension(2000, 100));
+	    analyseFilePath = new JTextField("C:\\Users\\User\\Desktop\\Banking\\behaviour.txt");
+	    analyseFilePath.setMaximumSize(new Dimension(2000, 100));
 
 	    JTextField originFilePath;
 	    //originFilePath = new JTextField("Path to file with origin");
@@ -179,7 +227,7 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Debug.log("We are going to Controller");
-					ctrl.Generate(programmFilePath.getText(), originFilePath.getText(), generatedFilePath.getText());
+					ctrl.Generate(analyseFilePath.getText(), originFilePath.getText(), generatedFilePath.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -192,13 +240,13 @@ public class GUI extends JFrame{
 	    applyBtn.addActionListener(new ApplyAllPathsButtonEvent());
 	    
 	    applyBtn.setFont(new Font("Serif", Font.PLAIN, 35));
-	    programmFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
+	    analyseFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
 	    originFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
 	    generatedFilePath.setFont(new Font("Serif", Font.PLAIN, 35));
 	    
 	    
 	    
-	    panel.add(programmFilePath);
+	    panel.add(analyseFilePath);
 	    panel.add(originFilePath);
 	    panel.add(generatedFilePath);
 	    panel.add(applyBtn);
@@ -232,7 +280,7 @@ public class GUI extends JFrame{
 	}
 	
 	
-
+	
 	
 	
 	
